@@ -2,8 +2,8 @@ import express from "express";
 import{ENV} from "./lib/env.js";
 import {connectDB} from "./lib/db.js";
 import cors from "cors";
-import {serv} from "inngest/express";
-import {inngest,functions} from "./lib/inngest.js";
+import { serve } from "inngest/express";
+import inngestClient, { functions } from "./lib/inngest.js";
 import path from "path";
 
 const app = express();
@@ -15,9 +15,9 @@ const dirname = path.resolve();
 app.use(express.json());
 
 //credential true meaning cookies ko allow krna 
-app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 
-app.use("api/inngest",serv(inngest, {functions}));
+app.use("/api/inngest", serve({ client: inngestClient, functions }));
 
 app.get("/", (req, res) => {
     res.status(200).json({msg:"success from api and is running"})
