@@ -53,7 +53,8 @@ if (ENV.NODE_ENV === "production") {
   app.use(express.static(frontendPath));
 
   // React / Vite SPA fallback
-  app.get("*", (req, res) => {
+  // Use a RegExp route to avoid path-to-regexp parsing errors for '*' in some environments
+  app.get(/.*/, (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
