@@ -1,48 +1,77 @@
 import express from "express";
-import{ENV} from "./lib/env.js";
-import {connectDB} from "./lib/db.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+import { ENV } from "./lib/env.js";
+import { connectDB } from "./lib/db.js";
 import { serve } from "inngest/express";
 import inngestClient, { functions } from "./lib/inngest.js";
-import path from "path";
 
+// ------------------------------------
+// ES MODULE __dirname FIX (IMPORTANT)
+// ------------------------------------
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ------------------------------------
+// APP INIT
+// ------------------------------------
 const app = express();
 
-const __dirname = path.resolve();
-//console.log(ENV.PORT)
-
-//middleware
+// ------------------------------------
+// MIDDLEWARE
+// ------------------------------------
 app.use(express.json());
 
-//credential true meaning cookies ko allow krna 
-app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: ENV.CLIENT_URL,
+    credentials: true,
+  })
+);
 
+// ------------------------------------
+// INNGEST ROUTE
+// ------------------------------------
 app.use("/api/inngest", serve({ client: inngestClient, functions }));
 
-app.get("/", (req, res) => {
-    res.status(200).json({msg:"success from api and is running"})
-})
+// ------------------------------------
+// API HEALTH CHECK (OPTIONAL)
+// ------------------------------------
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "API running" });
+});
 
+// ------------------------------------
+// SERVE FRONTEND (PRODUCTION ONLY)
+// ------------------------------------
+if (ENV.NODE_ENV === "production") {
+  // Path: backend/src → backend → project-root → frontend/dist
+  const frontendPath = path.join(__dirname, "../../frontend/dist");
 
-// for deployment 
-if(ENV.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,"../frontend/dist")));
+  app.use(express.static(frontendPath));
 
-    app.get("/{*any}",(req,res)=>{
-        res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
-    });
+  // React / Vite SPA fallback
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
 }
 
-// app.listen(ENV.PORT,()=>
-//     console.log("Server is running on port",ENV.PORT))
+// ------------------------------------
+// START SERVER
+// ------------------------------------
+const startServer = async () => {
+  try {
+    await connectDB();
 
-const startserver=async()=>{
-    try {
-        await connectDB();
-        app.listen(ENV.PORT, ()=> console.log("Server running on port", ENV.PORT));
-    } catch (error) {
-        console.error("Failed to start server:", error);
-    }
+    app.listen(ENV.PORT, () => {
+      console.log(`Server running on port ${ENV.PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
 };
 
-startserver();
+startServer();
