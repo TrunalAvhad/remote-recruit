@@ -4,9 +4,11 @@ import {connectDB} from "./lib/db.js";
 import cors from "cors";
 import {serv} from "inngest/express";
 import {inngest,functions} from "./lib/inngest.js";
+import path from "path";
 
 const app = express();
 
+const dirname = path.resolve();
 //console.log(ENV.PORT)
 
 //middleware
