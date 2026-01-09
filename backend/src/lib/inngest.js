@@ -11,6 +11,7 @@ const inngestClient = new Inngest({
 
 const syncUser = inngestClient.createFunction(
   { id: "sync-user" },
+  { event: "clerk/user.created" },
   async ({ event }) => {
     await connectDB();
 
