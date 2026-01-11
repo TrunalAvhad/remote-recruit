@@ -31,6 +31,8 @@ const syncUser = inngestClient.createFunction(
       name: newUser.name,
       image: newUser.profileImage,
     });
+
+    
   }
 );
 
