@@ -81,7 +81,7 @@ function HomePage() {
                         <div className='flex flex-wrap gap-4'>
                             <SignInButton mode="modal" >
                                 <button className='btn btn-primary btn-lg'>
-                                    Start Coading now
+                                    Start coding now
                                     <ArrowRightIcon className='size-5' />
                                 </button>
                             </SignInButton>
@@ -122,7 +122,7 @@ function HomePage() {
                                 <Video className="w-8 h-8 text-primary mb-4" />
                                 <h3 className="card-title text-lg">Live Video Interviews</h3>
                                 <p className="text-sm text-base-content/70">
-                                    Conduct seamless one-on-one or panel interviews in real time.
+                                    Conduct seamless one-on-one interviews in real time.
                                 </p>
                             </div>
                         </div>
