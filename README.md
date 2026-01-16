@@ -10,10 +10,12 @@ A comprehensive video interview platform built with the MERN stack, enabling rec
 
 - **13 Built-in Coding Problems**: Curated collection of technical interview questions across different difficulty levels
 - **Real-time Video Interviews**: Seamless video communication powered by Stream
+- **Screen Sharing**: Share your screen during interviews for better collaboration
 - **Live Chat Integration**: Real-time messaging between interviewer and candidate
 - **Code Editor**: Monaco Editor integration for live code editing and syntax highlighting
 - **Code Execution**: Execute and test code snippets with real-time output
 - **Session Management**: Create, track, and manage interview sessions
+- **Practice Problems**: Dedicated problem page to practice coding problems without creating sessions
 - **User Authentication**: Secure authentication using Clerk
 - **Session Persistence**: Store and fetch session data with MongoDB Atlas
 - **Dashboard**: View active sessions, recent interviews, and interview stats
@@ -122,7 +124,15 @@ Frontend runs on `http://localhost:5173`
 npm run build
 ```
 
-## 📊 Project Structure
+## � Screenshots
+
+### Interview Session in Action
+![Session Screenshot 1](./frontend/public/session.png)
+
+### Live Interview Session with Code Editor
+![Session Screenshot 2](./frontend/public/session2.png)
+
+## �📊 Project Structure
 
 ```
 VcInterviewPlatform/
