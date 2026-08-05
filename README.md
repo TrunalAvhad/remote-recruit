@@ -44,6 +44,11 @@ A comprehensive video interview platform built with the MERN stack, enabling rec
 - **Inngest** - Workflow orchestration for session creation
 - **CORS** - Cross-origin resource sharing
 
+### DevOps
+
+- **Docker**
+- **Docker Compose**
+
 ## 📋 Prerequisites
 
 - Node.js (v16 or higher)
@@ -117,6 +122,51 @@ npm run dev
 ```
 Frontend runs on `http://localhost:5173`
 
+## 🐳 Docker Support
+
+This project is containerized using **Docker** and **Docker Compose** for easy setup and consistent development.
+
+### Run with Docker
+
+From the project root:
+
+```bash
+docker compose up --build
+```
+
+Access the application:
+
+- **Frontend:** http://localhost:5173
+- **Backend:** http://localhost:3000
+
+Stop all containers:
+
+```bash
+docker compose down
+```
+
+### Docker Setup
+
+```
+backend/
+├── Dockerfile
+└── .dockerignore
+
+frontend/
+├── Dockerfile
+└── .dockerignore
+
+docker-compose.yml
+```
+
+### Features
+
+- Dockerized React (Vite) frontend
+- Dockerized Express backend
+- Docker Compose orchestration
+- Environment variable support
+- Automatic container networking
+
 ### Build for Production
 
 ```bash
@@ -155,7 +205,7 @@ VcInterviewPlatform/
 │   │       ├── env.js             # Environment config
 │   │       ├── inngest.js         # Inngest setup
 │   │       └── stream.js          # Stream SDK config
-│   └── package.json
+│   └── package.json 
 │
 ├── frontend/
 │   ├── src/
